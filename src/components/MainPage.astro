@@ -23,6 +23,7 @@ const latestPosts = await Promise.all(
         .slice(0, 5)
         .map(async (post: CollectionEntry<"posts">) => ({
             ...post,
+            slug: post.slug,
             Content: (await post.render()).Content,
         })),
 );
@@ -48,19 +49,19 @@ if (page === "about") {
 <div id="content">
     <Image id="neotribal" src={neotribal} alt="neotribal" loading="eager" />
     <div id="header">
-        <a href="/" class="headerTitle">
+    <a href="/blog/" class="headerTitle">
             <h1>abel's blog</h1>
         </a>
         <div id="navbar" class="window">
-            <a href="/latest" class="headerButton">
+            <a href="/blog/latest" class="headerButton">
                 <p>latest</p>
             </a>
             <hr class="verticalSeparator" aria-orientation="vertical" />
-            <a href="/posts" class="headerButton">
+            <a href="/blog/posts" class="headerButton">
                 <p>index</p>
             </a>
             <hr class="verticalSeparator" aria-orientation="vertical" />
-            <a href="/about" class="headerButton">
+            <a href="/blog/about" class="headerButton">
                 <p>about</p>
             </a>
         </div>
@@ -79,7 +80,7 @@ if (page === "about") {
                 <>
                     {latestPosts.map((post, idx) => (
                         <>
-                            <a href={`/posts/${post.slug}`}>
+                            <a href={`/blog/posts/${post.slug}`}>
                                 <h2>{post.data.title}</h2>
                             </a>
                             <post.Content />
@@ -88,7 +89,7 @@ if (page === "about") {
                     ))}
                     {posts.length > 0 && (
                         <div class="morePostsMessageContainer">
-                            <a href="/posts" class="morePostsMessage">
+                            <a href="/blog/posts" class="morePostsMessage">
                                 Wanna see more? Check the index
                             </a>
                         </div>
