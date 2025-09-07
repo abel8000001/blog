@@ -1,0 +1,9 @@
+---
+const { post } = Astro.props;
+const { Content } = await post.render();
+---
+<a href="/" class="allPostsButton">Back to all posts</a>
+<article>
+    <h2>{post.data.title}</h2>
+    <Content />
+</article>

@@ -1,0 +1,40 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+import "../../styles/global.css";
+import MainPage from '../../components/MainPage.astro';
+import { getEntry } from 'astro:content';
+
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  return posts.map((post: CollectionEntry<'posts'>) => ({
+    params: { slug: post.slug }
+  }));
+}
+
+const { slug } = Astro.params;
+const post = await getEntry('posts', slug);
+
+if (!post) {
+  throw new Error('Post not found');
+}
+---
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Play:wght@700&family=Raleway&display=swap"
+      rel="stylesheet"
+    />
+    <title>abel's blog</title>
+  </head>
+  <body>
+    <MainPage page="posts" post={post}/>
+  </body>
+</html>

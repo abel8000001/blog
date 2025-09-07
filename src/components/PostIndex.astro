@@ -1,0 +1,16 @@
+---
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+
+import "../styles/PostIndex.css";
+
+const posts = (await getCollection('posts') as CollectionEntry<'posts'>[])
+    .sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime());
+---
+<ul class="postsList">
+    {posts.map((post: CollectionEntry<'posts'>) => (
+        <li>
+            <a href={`/posts/${post.slug}`} class="post">{post.data.title}</a>
+        </li>
+    ))}
+</ul>

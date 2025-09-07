@@ -1,0 +1,100 @@
+---
+import { Image } from "astro:assets";
+import { getCollection, type CollectionEntry } from "astro:content";
+
+import "../styles/global.css";
+
+import AboutPage from "./AboutPage.astro";
+import PostIndex from "./PostIndex.astro";
+import PostContent from "./SinglePost.astro";
+
+import neotribal from "../assets/blog-neotribal.png";
+
+const { page, post } = Astro.props;
+const posts = await getCollection("posts");
+
+const latestPosts = await Promise.all(
+    posts
+        .sort(
+            (a: CollectionEntry<"posts">, b: CollectionEntry<"posts">) =>
+                new Date(b.data.pubDate).getTime() -
+                new Date(a.data.pubDate).getTime(),
+        )
+        .slice(0, 5)
+        .map(async (post: CollectionEntry<"posts">) => ({
+            ...post,
+            Content: (await post.render()).Content,
+        })),
+);
+
+let SelectedComponent;
+let latestPost = null;
+if (page === "about") {
+    SelectedComponent = AboutPage;
+} else if (page === "posts") {
+    SelectedComponent = PostIndex;
+} else if (page === "latest") {
+    latestPost = posts
+        .slice()
+        .sort(
+            (a: CollectionEntry<"posts">, b: CollectionEntry<"posts">) =>
+                new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime()
+        )[0];
+} else {
+    SelectedComponent = null;
+}
+---
+
+<div id="content">
+    <Image id="neotribal" src={neotribal} alt="neotribal" loading="eager" />
+    <div id="header">
+        <a href="/" class="headerTitle">
+            <h1>abel's blog</h1>
+        </a>
+        <div id="navbar" class="window">
+            <a href="/latest" class="headerButton">
+                <p>latest</p>
+            </a>
+            <hr class="verticalSeparator" aria-orientation="vertical" />
+            <a href="/posts" class="headerButton">
+                <p>index</p>
+            </a>
+            <hr class="verticalSeparator" aria-orientation="vertical" />
+            <a href="/about" class="headerButton">
+                <p>about</p>
+            </a>
+        </div>
+    </div>
+    <div id="posts-window" class="window">
+        {
+            latestPost ? (
+                <PostContent post={latestPost} />
+            ) : post ? (
+                <>
+                    <PostContent post={post} />
+                </>
+            ) : SelectedComponent ? (
+                <SelectedComponent />
+            ) : (
+                <>
+                    {latestPosts.map((post, idx) => (
+                        <>
+                            <a href={`/posts/${post.slug}`}>
+                                <h2>{post.data.title}</h2>
+                            </a>
+                            <post.Content />
+                            {idx < 4 && <hr class="horizontalSeparator" />}
+                        </>
+                    ))}
+                    {posts.length > 0 && (
+                        <div class="morePostsMessageContainer">
+                            <a href="/posts" class="morePostsMessage">
+                                Wanna see more? Check the index
+                            </a>
+                        </div>
+                    )}
+                </>
+            )
+        }
+    </div>
+</div>

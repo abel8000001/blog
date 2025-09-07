@@ -1,0 +1,246 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    font-family: 'Raleway', sans-serif;
+    background-color: #DDEBFF;
+    overflow: hidden;
+}
+
+#content {
+    width: 100vw;
+    height: calc(var(--vh, 1vh) * 100);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-image: url('/blog-background.png');
+    background-size: cover;
+    position: relative;
+    overflow: hidden;
+}
+
+.window {
+    background: rgba(0, 0, 0, 0.85);
+    border: 15px ridge #9fadb4;
+    border-radius: 10px;
+    -webkit-backdrop-filter: blur(3px);
+    backdrop-filter: blur(3px);
+    color: #DDEBFF;
+    padding: 2px 10px;
+    box-sizing: border-box;
+}
+
+#neotribal {
+    position: absolute;
+    width: auto;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    left: -35px;
+    opacity: 0.9;
+    filter: blur(1px);
+    pointer-events: none;
+}
+
+#header {
+    display: flex;
+    width: 80%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.headerTitle {
+    text-decoration: none;
+    display: inline-block;
+}
+
+h1 {
+    font-family: 'Play', sans-serif;
+    font-size: 4rem;
+    color: #151515;
+    filter: drop-shadow(0 0 10px #000000) blur(1.25px);
+    margin: 5% 0;
+    transition: text-shadow 0.3s ease-in-out;
+    text-decoration: none !important;
+}
+
+h1:hover {
+    text-shadow: 0 0 3px #ffffff, 0 0 6px #ffffff, 0 0 9px #ffffff;
+}
+
+#navbar {
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    border-width: 8px;
+    gap: 5px;
+}
+
+#navbar p {
+    font-family: 'Play', sans-serif;
+    font-size: 1rem;
+    color: white;
+    user-select: none;
+}
+
+.headerButton {
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    padding: 0px 5px;
+    text-decoration: none;
+    color: inherit;
+}
+
+.headerButton:hover {
+    background-color: #9fadb420;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.verticalSeparator {
+    height: 20px;
+    border: 1px solid #DDEBFF;
+    filter: blur(0.5px);
+}
+
+.horizontalSeparator {
+    width: 90%;
+    border: 2px solid #7879b4;
+    filter: blur(0.5px);
+}
+
+#posts-window {
+    width: 85%;
+    height: calc(100% - 100px);
+    overflow-y: scroll;
+    padding: 0 4rem;
+    margin-bottom: 10px;
+}
+
+#posts-window a {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.5s;
+}
+
+#posts-window a:hover {
+    color: #fdfdfd;
+}
+
+#posts-window h2 {
+    font-family: 'Raleway', sans-serif;
+    font-size: 2.5rem;
+}
+
+#posts-window p,
+#posts-window span {
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.3rem;
+}
+
+.morePostsMessageContainer {
+    color: #7879b4;
+    text-align: end;
+    justify-content: end;
+    padding-top: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+.morePostsMessage {
+    text-decoration: none;
+    color: inherit;
+}
+
+.allPostsButton {
+    margin: 2rem 1rem;
+    font-size: 1.4rem;
+    color: #7879b4 !important;
+    float: inline-end;
+}
+
+.allPostsButton:hover {
+    color: #fdfdfd !important;
+}
+
+.morePostsMessage:hover {
+    color: #9fadb4 !important;
+    cursor: pointer;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #c3cbd3;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #b7bcc0;
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.5rem;
+        margin: 0;
+    }
+
+    #neotribal {
+        left: -40px;
+        opacity: 0.6;
+    }
+
+    #content {
+        gap: 10px;
+    }
+
+    #header {
+        width: 90%;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    #navbar {
+        flex-direction: row;
+        gap: 10px;
+    }
+
+    #posts-window {
+        width: 95%;
+        padding: 0 1rem;
+    }
+
+    #posts-window h2 {
+        font-size: 2rem;
+    }
+
+    #posts-window p,
+    #posts-window span {
+        font-size: 1rem;
+    }
+
+    .horizontalSeparator {
+        width: 100%;
+    }
+
+    .morePostsMessageContainer {
+        text-align: center;
+    }
+
+    .allPostsButton {
+        font-size: 1rem;
+    }
+}
+
+.postListItem:hover {
+    cursor: pointer;
+}
