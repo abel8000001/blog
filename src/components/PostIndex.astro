@@ -10,7 +10,7 @@ const posts = (await getCollection('posts') as CollectionEntry<'posts'>[])
 <ul class="postsList">
     {posts.map((post: CollectionEntry<'posts'>) => (
         <li>
-            <a href={`/posts/${post.slug}`} class="post">{post.data.title}</a>
+            <a href={`/blog/posts/${post.slug}`} class="post">{post.data.title}</a>
         </li>
     ))}
 </ul>
