@@ -120,6 +120,7 @@ h1:hover {
     width: 85%;
     height: calc(100% - 100px);
     overflow-y: scroll;
+    overflow-x: hidden;
     padding: 0 4rem;
     margin-bottom: 10px;
 }
